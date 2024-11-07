@@ -4,6 +4,7 @@ import { AuthClient } from '@dfinity/auth-client';
 import { Modal } from 'bootstrap'; // Importa Modal desde Bootstrap
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.bundle.min.js';
+const canisterId = process.env.CANISTER_ID_INTERNET_IDENTITY;
 
 class App {
     greeting = '';
@@ -36,7 +37,8 @@ class App {
             this.identity = null;
         } else {
             await this.authClient.login({
-                identityProvider: "https://identity.ic0.app",
+                // identityProvider: "https://identity.ic0.app", // También se puede usar el proveedor de identidad de Internet Computer
+                identityProvider: `http://${canisterId}.localhost:4943/`,
                 onSuccess: () => {
                     this.identity = this.authClient.getIdentity();
                     this.#render();
