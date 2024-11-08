@@ -1,17 +1,19 @@
-# `bills-chain-motoko`
+# Bills Chain with Motoko
 
-Welcome to your new `bills-chain-motoko` project and to the Internet Computer development community. By default, creating a new project adds this README and some template files to your project directory. You can edit these template files to customize your project and to include your own code to speed up the development cycle.
+## Description
 
-To get started, you might want to explore the project directory structure and the default configuration file. Working with this project in your development environment will not affect any production deployment or identity tokens.
+Bills Chain is a small project that allows users to share and manage bills with others. With Bills Chain, you can create new bills, pay existing ones, and even delete them. It is developed using Motoko, providing a simple and efficient way to collaborate in bill management.
 
-To learn more before you start working with `bills-chain-motoko`, see the following documentation available online:
+## Installation
 
-- [Quick Start](https://internetcomputer.org/docs/current/developer-docs/setup/deploy-locally)
-- [SDK Developer Tools](https://internetcomputer.org/docs/current/developer-docs/setup/install)
-- [Motoko Programming Language Guide](https://internetcomputer.org/docs/current/motoko/main/motoko)
-- [Motoko Language Quick Reference](https://internetcomputer.org/docs/current/motoko/main/language-manual)
+Clone the repository from GitHub:
 
-If you want to start working on your project right away, you might want to try the following commands:
+```bash
+git clone https://github.com/ChrisUBS/bills-chain-motoko
+```
+
+**Initial Steps**:  
+If you want to start working on the project right away, you can use the following commands:
 
 ```bash
 cd bills-chain-motoko/
@@ -19,41 +21,64 @@ dfx help
 dfx canister --help
 ```
 
-## Running the project locally
+### Running the Project Locally
 
-If you want to test your project locally, you can use the following commands:
+If you want to test the project on your local machine, follow these steps:
+
+**First Time Setup (Only Once)**:
 
 ```bash
-# Starts the replica, running in the background
-dfx start --background
+# Update package list
+sudo apt update
 
-# Deploys your canisters to the replica and generates your candid interface
+# Install NodeJS
+sudo apt-get install nodejs
+
+# Install NPM
+sudo apt-get install npm
+
+# Install Vite with NPM
+sudo npm install vite --save-dev
+```
+
+**Starting the Project**:
+To start the project normally, use the following commands:
+
+```bash
+# Start the Dfinity replica, running in the background and cleaning the cache
+dfx start --background --clean
+
+# Deploy your canisters to the replica and generate the candid interface
 dfx deploy
 ```
 
-Once the job completes, your application will be available at `http://localhost:4943?canisterId={asset_canister_id}`.
+## Usage
 
-If you have made changes to your backend canister, you can generate a new candid interface with
+Bills Chain has a simple interface that allows users to interact with the available bills. Here are the main features of the project:
 
-```bash
-npm run generate
-```
+- **View Bills**:  
+  You can view all current bills anonymously without logging in.
 
-at any time. This is recommended before starting the frontend development server, and will be run automatically any time you run `dfx deploy`.
+- **Manage Bills (Add, Pay, Delete)**:  
+  To add new bills, pay current ones, or delete them, you need to log in. This can be done using the **Login** button available in the application.
+  - Once logged in, you will use an **identity** that allows you to access the advanced features of the platform.
 
-If you are making frontend changes, you can start a development server with
+These actions allow complete management of shared bills, facilitating collaboration among users.
 
-```bash
-npm start
-```
+## Contributions
 
-Which will start a server at `http://localhost:8080`, proxying API requests to the replica at port 4943.
+Contributions are welcome! If you wish to contribute to the project, you can do so in the following ways:
 
-### Note on frontend environment variables
+- **Open Issues**: If you find any problems or have suggestions, please open an issue in the GitHub repository: [Issues](https://github.com/ChrisUBS/bills-chain-motoko/issues).
+- **Make Pull Requests**: If you want to contribute with code, improve features, or fix bugs, you can make a pull request. Be sure to clearly explain the changes and follow best practices to facilitate the review process.
 
-If you are hosting frontend code somewhere without using DFX, you may need to make one of the following adjustments to ensure your project does not fetch the root key in production:
+Thank you for your support and collaboration in improving Bills Chain.
 
-- set`DFX_NETWORK` to `ic` if you are using Webpack
-- use your own preferred method to replace `process.env.DFX_NETWORK` in the autogenerated declarations
-  - Setting `canisters -> {asset_canister_id} -> declarations -> env_override to a string` in `dfx.json` will replace `process.env.DFX_NETWORK` with the string in the autogenerated declarations
-- Write your own `createActor` constructor
+## License
+
+This project is licensed under the **GNU General Public License v3.0 (GPL-3.0)**. This means you are free to use, modify, and distribute the code, provided that modified versions are also distributed under the same license. For more information, check [GPL-3.0 License](https://www.gnu.org/licenses/gpl-3.0.en.html).
+
+## Credits
+
+- Project developed by **ChrisUBS**.
+- Inspired by the need to manage shared bills in a more efficient and collaborative way.
