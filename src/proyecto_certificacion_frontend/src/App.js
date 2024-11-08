@@ -76,14 +76,14 @@ class App {
         this.#render();
     };
 
-    #handleDeleteBill = async (billName) => {
-        await proyecto_certificacion_backend.deleteBill(billName);
+    #handleDeleteBill = async (billId) => {
+        await proyecto_certificacion_backend.deleteBill(billId);
         await this.loadBills();
     };
-
-    #handlePayBill = async (billName) => {
+    
+    #handlePayBill = async (billId) => {
         if (this.identity) {
-            await proyecto_certificacion_backend.payBill(billName, this.identity.getPrincipal());
+            await proyecto_certificacion_backend.payBill(billId, this.identity.getPrincipal());
             await this.loadBills();
         }
     };
@@ -91,31 +91,31 @@ class App {
     #render() {
         let billsList = this.bills.map(
             (bill) => html`
-                <div class="card case-card mb-3" style="background-color: ${bill[3] === "Pagado" ? '#e9ecef' : 'white'};">
+                <div class="card case-card mb-3" style="background-color: ${bill[4] === "Pagado" ? '#e9ecef' : 'white'};">
                     <div class="card-body">
                         <h5 
                             class="card-title" 
-                            style="font-size: 1.5rem; font-weight: 700; color: #343a40; ${bill[3] === "Pagado" ? 'text-decoration: line-through;' : ''}">
-                            ${bill[0]}
+                            style="font-size: 1.5rem; font-weight: 700; color: #343a40; ${bill[4] === "Pagado" ? 'text-decoration: line-through;' : ''}">
+                            ${bill[1]}
                         </h5>
-                        <p class="card-text"><strong>Creador:</strong> ${bill[1]}</p>
-                        <p class="card-text"><strong>Descripción:</strong> ${bill[2]}</p>
-                        <p class="card-text"><strong>Estado:</strong> ${bill[3]}</p>
-                        ${bill[3] === "Pagado" 
-                            ? html`<p class="card-text"><strong>Lo pagó:</strong> ${bill[4]}</p>` 
+                        <p class="card-text"><strong>Creador:</strong> ${bill[2]}</p>
+                        <p class="card-text"><strong>Descripción:</strong> ${bill[3]}</p>
+                        <p class="card-text"><strong>Estado:</strong> ${bill[4]}</p>
+                        ${bill[4] === "Pagado" 
+                            ? html`<p class="card-text"><strong>Lo pagó:</strong> ${bill[5]}</p>` 
                             : null}
                         <div class="d-flex justify-content-end">
                             <button 
-                                class="btn ${!this.identity || bill[3] === 'Pagado' ? 'btn-secondary' : 'btn-success'} pay-btn me-2" 
+                                class="btn ${!this.identity || bill[4] === 'Pagado' ? 'btn-secondary' : 'btn-success'} pay-btn me-2" 
                                 title="Pagar"
-                                ?disabled="${!this.identity || bill[3] === 'Pagado'}"
+                                ?disabled="${!this.identity || bill[4] === 'Pagado'}"
                                 @click="${() => this.#handlePayBill(bill[0])}">
                                 <i class="bi bi-credit-card"></i>
                             </button>
                             <button 
-                                class="btn ${!this.identity || bill[3] !== 'Pagado' ? 'btn-secondary' : 'btn-danger'} delete-case-btn me-2" 
+                                class="btn ${!this.identity || bill[4] !== 'Pagado' ? 'btn-secondary' : 'btn-danger'} delete-case-btn me-2" 
                                 title="Borrar"
-                                ?disabled="${!this.identity || bill[3] !== 'Pagado'}"
+                                ?disabled="${!this.identity || bill[4] !== 'Pagado'}"
                                 @click="${() => this.#handleDeleteBill(bill[0])}">
                                 <i class="bi bi-trash"></i>
                             </button>
@@ -123,7 +123,7 @@ class App {
                     </div>
                 </div>
             `
-        );
+        );        
 
         let body = html`
             <!-- Navbar -->
